@@ -155,6 +155,7 @@ func RunInNewTxn(ctx context.Context, store Storage, retryable bool, f func(ctx 
 		})
 
 		if err == nil {
+			logutil.BgLogger().Info("---------RunInNewTxn----------------")
 			err = txn.Commit(ctx)
 			if err == nil {
 				break

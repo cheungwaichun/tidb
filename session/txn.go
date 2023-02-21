@@ -385,6 +385,7 @@ func ResetMockAutoRandIDRetryCount(failTimes int64) {
 
 // Commit overrides the Transaction interface.
 func (txn *LazyTxn) Commit(ctx context.Context) error {
+	logutil.BgLogger().Info("---------func (txn *LazyTxn) Commit----------------")
 	defer txn.reset()
 	if len(txn.mutations) != 0 || txn.countHint() != 0 {
 		logutil.BgLogger().Error("the code should never run here",
@@ -710,6 +711,7 @@ func (s *session) HasDirtyContent(tid int64) bool {
 
 // StmtCommit implements the sessionctx.Context interface.
 func (s *session) StmtCommit(ctx context.Context) {
+	// logutil.BgLogger().Info("---------func (s *session) StmtCommit----------------")
 	defer func() {
 		s.txn.cleanup()
 	}()

@@ -21,6 +21,7 @@ import (
 	"github.com/pingcap/tidb/kv"
 	"github.com/pingcap/tidb/parser/ast"
 	"github.com/pingcap/tidb/sessionctx"
+	"github.com/pingcap/tidb/util/logutil"
 )
 
 // EnterNewTxnType is the type to enter a new txn
@@ -213,6 +214,7 @@ type TxnManager interface {
 // In other scenes like 'BEGIN', 'START TRANSACTION' or prepare transaction in a new statement,
 // you should use `TxnManager`.`EnterNewTxn` and pass the relevant to it.
 func NewTxn(ctx context.Context, sctx sessionctx.Context) error {
+	logutil.BgLogger().Info("------------NewTxn-------------")
 	return GetTxnManager(sctx).EnterNewTxn(ctx, &EnterNewTxnRequest{
 		Type:    EnterNewTxnDefault,
 		TxnMode: ast.Optimistic,

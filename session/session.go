@@ -610,6 +610,7 @@ func (s *session) TxnInfo() *txninfo.TxnInfo {
 }
 
 func (s *session) doCommit(ctx context.Context) error {
+	// logutil.BgLogger().Info("---------func (s *session) doCommit----------------")
 	if !s.txn.Valid() {
 		return nil
 	}
@@ -2534,11 +2535,13 @@ func (s *session) DropPreparedStmt(stmtID uint32) error {
 }
 
 func (s *session) Txn(active bool) (kv.Transaction, error) {
+	// logutil.BgLogger().Info("---------Txn before active----------------")
 	if !active {
 		return &s.txn, nil
 	}
 	_, err := sessiontxn.GetTxnManager(s).ActivateTxn()
 	s.SetMemoryFootprintChangeHook()
+	logutil.BgLogger().Info("---------Txn after active----------------")
 	return &s.txn, err
 }
 

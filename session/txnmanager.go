@@ -27,6 +27,7 @@ import (
 	"github.com/pingcap/tidb/sessiontxn"
 	"github.com/pingcap/tidb/sessiontxn/isolation"
 	"github.com/pingcap/tidb/sessiontxn/staleread"
+	// "github.com/pingcap/tidb/util/logutil"
 )
 
 func init() {
@@ -210,6 +211,7 @@ func (m *txnManager) OnStmtRetry(ctx context.Context) error {
 
 // OnStmtCommit is the hook that should be called when a statement is executed successfully.
 func (m *txnManager) OnStmtCommit(ctx context.Context) error {
+	// logutil.BgLogger().Info("---------func (m *txnManager) OnStmtCommit----------------")
 	if m.ctxProvider == nil {
 		return errors.New("context provider not set")
 	}

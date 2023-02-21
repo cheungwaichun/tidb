@@ -50,6 +50,7 @@ type tikvTxn struct {
 
 // NewTiKVTxn returns a new Transaction.
 func NewTiKVTxn(txn *tikv.KVTxn) kv.Transaction {
+	// logutil.BgLogger().Info("---------NewTiKVTxn----------------")
 	txn.SetKVFilter(TiDBKVFilter{})
 
 	entryLimit := atomic.LoadUint64(&kv.TxnEntrySizeLimit)
