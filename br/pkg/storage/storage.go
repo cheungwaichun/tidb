@@ -173,6 +173,11 @@ func New(ctx context.Context, backend *backuppb.StorageBackend, opts *ExternalSt
 			return nil, errors.Annotate(berrors.ErrStorageInvalidConfig, "hdfs config not found")
 		}
 		return NewHDFSStorage(backend.Hdfs.Remote), nil
+	case *backuppb.StorageBackend_Xbsa:
+		if backend.Xbsa == nil {
+			return nil, errors.Annotate(berrors.ErrStorageInvalidConfig, "xbsa config not found")
+		}
+		return NewXBSAStorage(backend.Xbsa.Remote)
 	case *backuppb.StorageBackend_S3:
 		if backend.S3 == nil {
 			return nil, errors.Annotate(berrors.ErrStorageInvalidConfig, "s3 config not found")

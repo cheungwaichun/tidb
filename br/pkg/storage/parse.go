@@ -76,6 +76,10 @@ func parseBackend(u *url.URL, rawURL string, options *BackendOptions) (*backuppb
 		hdfs := &backuppb.HDFS{Remote: rawURL}
 		return &backuppb.StorageBackend{Backend: &backuppb.StorageBackend_Hdfs{Hdfs: hdfs}}, nil
 
+	case "xbsa":
+		xbsa := &backuppb.XBSA{Remote: rawURL}
+		return &backuppb.StorageBackend{Backend: &backuppb.StorageBackend_Xbsa{Xbsa: xbsa}}, nil
+
 	case "noop":
 		noop := &backuppb.Noop{}
 		return &backuppb.StorageBackend{Backend: &backuppb.StorageBackend_Noop{Noop: noop}}, nil
